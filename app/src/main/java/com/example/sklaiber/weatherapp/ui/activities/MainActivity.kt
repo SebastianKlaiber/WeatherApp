@@ -9,6 +9,7 @@ import com.example.sklaiber.weatherapp.domain.commands.RequestForecastCommand
 import com.example.sklaiber.weatherapp.ui.adapters.ForecastListAdapter
 import org.jetbrains.anko.async
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
@@ -23,9 +24,9 @@ class MainActivity : AppCompatActivity() {
     async() {
       val result = RequestForecastCommand("94043").execute()
       uiThread {
-        forecastList.adapter = ForecastListAdapter(result)
+        val adapter = ForecastListAdapter(result) { toast(it.date) }
+        forecastList.adapter = adapter
       }
     }
-
   }
 }
