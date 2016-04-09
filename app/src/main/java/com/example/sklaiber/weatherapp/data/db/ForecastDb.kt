@@ -2,9 +2,10 @@ package com.example.sklaiber.weatherapp.data.db
 
 import com.example.sklaiber.weatherapp.domain.model.ForecastList
 import com.example.sklaiber.weatherapp.extentsions.clear
-import com.example.sklaiber.weatherapp.extentsions.toVarargArray
 import com.example.sklaiber.weatherapp.extentsions.parseList
 import com.example.sklaiber.weatherapp.extentsions.parseOpt
+import com.example.sklaiber.weatherapp.extentsions.toVarargArray
+import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import java.util.*
 
