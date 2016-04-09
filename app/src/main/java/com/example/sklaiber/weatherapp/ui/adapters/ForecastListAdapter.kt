@@ -4,14 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import com.example.sklaiber.weatherapp.R
 import com.example.sklaiber.weatherapp.domain.model.Forecast
 import com.example.sklaiber.weatherapp.domain.model.ForecastList
-import com.example.sklaiber.weatherapp.ui.utils.ctx
+import com.example.sklaiber.weatherapp.extentsions.ctx
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.find
+import kotlinx.android.synthetic.main.item_forecast.view.*
+import java.text.DateFormat
+import java.util.*
 
 class ForecastListAdapter(val weekForecast: ForecastList,
     val itemClick: (Forecast) -> Unit) :
@@ -30,29 +30,20 @@ class ForecastListAdapter(val weekForecast: ForecastList,
 
   class ViewHolder(view: View, val itemClick: (Forecast) -> Unit) : RecyclerView.ViewHolder(view) {
 
-    private val iconView: ImageView
-    private val dateView: TextView
-    private val descriptionView: TextView
-    private val maxTemperatureView: TextView
-    private val minTemperatureView: TextView
-
-    init {
-      iconView = view.find(R.id.icon)
-      dateView = view.find(R.id.date)
-      descriptionView = view.find(R.id.description)
-      maxTemperatureView = view.find(R.id.maxTemperature)
-      minTemperatureView = view.find(R.id.minTemperature)
-    }
-
     fun bindForecast(forecast: Forecast) {
       with(forecast) {
-        Picasso.with(itemView.ctx).load(iconUrl).into(iconView)
-        dateView.text = date
-        descriptionView.text = description
-        maxTemperatureView.text = "${high.toString()}º"
-        minTemperatureView.text = "${low.toString()}º"
+        Picasso.with(itemView.ctx).load(iconUrl).into(itemView.icon)
+        itemView.date.text = convertDate(date)
+        itemView.description.text = description
+        itemView.maxTemperature.text = "${high.toString()}º"
+        itemView.minTemperature.text = "${low.toString()}º"
         itemView.setOnClickListener { itemClick(this) }
       }
+    }
+
+    private fun convertDate(date: Long): String {
+      val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+      return df.format(date)
     }
   }
 }

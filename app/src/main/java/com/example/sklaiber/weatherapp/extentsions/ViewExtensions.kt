@@ -1,4 +1,4 @@
-package com.example.sklaiber.weatherapp.ui.utils
+package com.example.sklaiber.weatherapp.extentsions
 
 import android.content.Context
 import android.view.View
